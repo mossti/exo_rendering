@@ -1,0 +1,7 @@
+<launch>
+
+<node name="angle_tracker" pkg="exo_joint" type="angle_tracker.py"/>
+<node name="spool_angle_tracker" pkg="exo_joint" type="spool_angle_tracker.py"/>
+<node name="motor_driver" pkg="exo_joint" type="motor_driver.py"/>
+
+</launch>
