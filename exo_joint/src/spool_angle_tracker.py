@@ -99,9 +99,10 @@ def spool_angle_publisher():
 				entry_a = entry_a + str(a)
 				entry_b = entry_b + str(b)
 		
-		entry_a = int(entry_a)
-		entry_b = int(entry_b)
-		
+		entry_a = int(entry_a,2)
+		entry_b = int(entry_b,2)
+		rospy.loginfo(rospy.get_caller_id() + "spool_val_a: " + str(entry_a))
+		rospy.loginfo(rospy.get_caller_id() + "spool_val_b: " + str(entry_b))
 		entry_array.data = [entry_a, entry_b]
 		pub.publish(entry_array)
 		#rate.sleep()
