@@ -25,13 +25,13 @@ import math
 
 def pid_control(delta_theta, int_error, delta_error):
 	kp = 1
-	ki = 5
-	kd = 5
+	ki = 0.01
+	kd = 0.01
 	vel = kp*delta_theta + ki*int_error + kd*delta_error
-	if vel < 5:
+	if vel < 0:
 		vel = 5
 	if vel >= 30:
-		vel = 30
+		vel = 5
 	return vel
 
 def motor_init():
@@ -216,12 +216,14 @@ def motor_callback(data):
 	global turn_tracker_b
 	
 	global test
+	global high_val
+	global mid_val
 	
 	global max_deflection
 	GPIO.setmode(GPIO.BCM)
 		
 	if motor_val_count == 0:
-		max_deflection = 20
+		
 		motor_val_eq = data.data
 		spool_val_a = 0
 		spool_val_b = 0
@@ -257,11 +259,16 @@ def motor_callback(data):
 		flag_b = '...'
 		turn_tracker_a = 0
 		turn_tracker_b = 0
+		
+		test = '2'
+		high_val = 360
+		mid_val = high_val/2
+		max_deflection = high_val/18
 	
-	test = '2'
-	
-	motor_val_a = ((float(data.data[0] - motor_val_eq[0])/250)*360)%360
-	motor_val_b = ((float(data.data[1] - motor_val_eq[1])/250)*360)%360
+	#motor_val_a = ((float(data.data[0] - motor_val_eq[0])/248.98)*360)%360
+	#motor_val_b = ((float(data.data[1] - motor_val_eq[1])/248.98)*360)%360
+	motor_val_a = ((float(data.data[0] - motor_val_eq[0])/248.98)*high_val)%high_val
+	motor_val_b = ((float(data.data[1] - motor_val_eq[1])/248.98)*high_val)%high_val
 	
 	#rospy.loginfo(str(dist_a))
 	#rospy.loginfo(str(dist_b))
@@ -298,27 +305,29 @@ def motor_callback(data):
 	#motor_v_a = 15
 	#motor_v_b = 15
 	
-	if (motor_val_last_a > 0 and motor_val_last_a < 180) and (motor_val_a > 180):
+	
+	
+	if (motor_val_last_a > 0 and motor_val_last_a < mid_val) and (motor_val_a > mid_val):
 		turn_tracker_a -= 1
 	
-	if (motor_val_last_a > 180) and (motor_val_a > 0 and motor_val_a < 180):
+	if (motor_val_last_a > mid_val) and (motor_val_a > 0 and motor_val_a < mid_val):
 		turn_tracker_a +=1
 	
-	if (motor_val_last_b > 0 and motor_val_last_b < 180) and (motor_val_b > 180):
+	if (motor_val_last_b > 0 and motor_val_last_b < mid_val) and (motor_val_b > mid_val):
 		turn_tracker_b -= 1
 	
-	if (motor_val_last_b > 180) and (motor_val_b > 0 and motor_val_b < 180):
+	if (motor_val_last_b > mid_val) and (motor_val_b > 0 and motor_val_b < mid_val):
 		turn_tracker_b +=1
 	
 	spool_val_low_a = 0 + spool_val_a
-	spool_val_high_a = 360 - spool_val_a
+	spool_val_high_a = high_val - spool_val_a
 	motor_val_low_a = 0 + motor_val_a
-	motor_val_high_a = 360 - motor_val_a
+	motor_val_high_a = high_val - motor_val_a
 	
 	spool_val_low_b = 0 + spool_val_b
-	spool_val_high_b = 360 - spool_val_b
+	spool_val_high_b = high_val - spool_val_b
 	motor_val_low_b = 0 + motor_val_b
-	motor_val_high_b = 360 - motor_val_b
+	motor_val_high_b = high_val - motor_val_b
 	
 	# MOTOR CORRECTS ELASTIC DEVIATION CASE; TEST = '1'
 	if test == '1':
@@ -403,12 +412,12 @@ def motor_callback(data):
 					b.ChangeDutyCycle(motor_v_b)
 					flag_b = "<--"
 	
-		if dist_a < max_deflection-5:
+		if dist_a < max_deflection:
 			GPIO.output(17,0)
 			GPIO.output(22,0)
 			a.ChangeDutyCycle(0)
 			flag_a = "..."
-		if dist_b < max_deflection-5:
+		if dist_b < max_deflection:
 			GPIO.output(14,0)
 			GPIO.output(15,0)
 			b.ChangeDutyCycle(0)
@@ -424,26 +433,19 @@ def motor_callback(data):
 				dist_a = dist_low_a
 				if dist_a > max_deflection:
 					#rospy.loginfo("SVA > MVA ; DIST_LOW < DIST_HIGH ; DIST A > MAX DEFLECTION")
-					GPIO.output(17,0)
-					GPIO.output(22,1)
+					GPIO.output(17,1)
+					GPIO.output(22,0)
 					a.ChangeDutyCycle(motor_v_a)
-					flag_a = "<-- (1)"
-					
-				
-					
+					flag_a = "<-- (1)"					
 			if dist_high_a < dist_low_a:
 				dist_a = dist_high_a
 				if dist_a > max_deflection:
 					#rospy.loginfo("SVA > MVA ; DIST_LOW > DIST_HIGH ; DIST A > MAX DEFLECTION")
-					GPIO.output(17,1)
-					GPIO.output(22,0)
+					GPIO.output(17,0)
+					GPIO.output(22,1)
 					a.ChangeDutyCycle(motor_v_a)
 					flag_a = "--> (2)"
-					
-				
-			
-					
-				
+										
 		if spool_val_a < motor_val_a:
 			dist_low_a = spool_val_low_a + motor_val_high_a
 			dist_high_a = motor_val_a - spool_val_a
@@ -451,25 +453,19 @@ def motor_callback(data):
 				dist_a = dist_low_a
 				if dist_a > max_deflection:
 					#rospy.loginfo("SVA < MVA ; DIST_LOW < DIST_HIGH ; DIST A > MAX DEFLECTION")
-					GPIO.output(17,1)
-					GPIO.output(22,0)
+					GPIO.output(17,0)
+					GPIO.output(22,1)
 					flag_a = "--> (3)"
-					a.ChangeDutyCycle(motor_v_a)
-					pass
-				pass
-			pass
-				
+					a.ChangeDutyCycle(motor_v_a)			
 			if dist_high_a < dist_low_a:
 				dist_a = dist_high_a
 				if dist_a > max_deflection:
 					#rospy.loginfo("SVA < MVA ; DIST_LOW > DIST_HIGH ; DIST A > MAX DEFLECTION")
-					GPIO.output(17,0)
-					GPIO.output(22,1)
+					GPIO.output(17,1)
+					GPIO.output(22,0)
 					a.ChangeDutyCycle(motor_v_a)
 					flag_a = "<-- (4)"
-					pass
-				pass
-			pass
+					
 			
 		if spool_val_b > motor_val_b:
 			dist_low_b = spool_val_high_b + motor_val_low_b
@@ -511,13 +507,13 @@ def motor_callback(data):
 					b.ChangeDutyCycle(motor_v_b)
 					flag_b = "<-- (4)"
 	
-		if dist_a < 10:
+		if dist_a < max_deflection/2: #high_val/360:
 			GPIO.output(17,0)
 			GPIO.output(22,0)
 			a.ChangeDutyCycle(0)
 			flag_a = "..."
 			
-		if dist_b < 10:
+		if dist_b < 2: #high_val/360:
 			GPIO.output(14,0)
 			GPIO.output(15,0)
 			b.ChangeDutyCycle(0)
