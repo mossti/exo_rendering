@@ -18,10 +18,10 @@ def init_motor_encoders():
 	global clkLastState1
 	global clkLastState2
 	
-	clk1 = 19 #A1
-	clk2 = 16 #A2
-	dt1 = 26 #B1
-	dt2 = 20 #B2
+	clk2 = 19 #A1
+	clk1 = 16 #B1
+	dt2 = 26 #A2
+	dt1 = 20 #B2
 
 	GPIO.setmode(GPIO.BCM)
 	GPIO.setup(clk1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
