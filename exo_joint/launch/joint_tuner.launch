@@ -1,0 +1,9 @@
+<launch>
+
+<node name="key_teleop" pkg="key_teleop" type="key_teleop.py" output="screen"/>
+<node name="angle_tracker" pkg="exo_joint" type="angle_tracker.py"/>
+<node name="spool_angle_tracker" pkg="exo_joint" type="spool_angle_tracker.py"/>
+<node name="joint_tuner" pkg="exo_joint" type="joint_tuner.py"/>
+
+
+</launch>
