@@ -57,6 +57,8 @@ The spool encoders are quadrature magnetic encoders with a max resolution of 409
 
 The requirements for correcting small motions in the GBO are for a relatively low torque actuator that is back-driveable. To achieve this, 250:1 motors were used, connected to low spring constant torsion springs (K = 0.00536 Nm/rev) connected the motors to the spool (e.g., to the load).
 
+![](/images/spoolencoderattachment.jpg)
+
 # CODE
 
 ## ROS information and supporting packages:
