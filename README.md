@@ -1,5 +1,5 @@
 # CABLE-DRIVEN SERIES ELASTIC ACTUATOR FOR UPPER-LIMB REHABILITATIVE EXOSKELETON
-You can see the demo video [here](https://www.youtube.com/watch?v=A_MqyhAG-6s)!
+*You can see the demo video [here](https://www.youtube.com/watch?v=A_MqyhAG-6s)!*
 
 ![singleroller](/images/triplefollerjoint.jpg)
 
@@ -22,6 +22,8 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 
 # SEA COMPONENTS
 
+![](/images/sea.png)
+
 ## BOM:
 
 * Raspberry Pi 4 Model B (2GB RAM) x1
@@ -35,6 +37,9 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 * Pololu Magnetic Encoder Pair Kit for Micro Metal Gearmotors (12 CPR, 2.7-18V) x2
 * AEAT-6012 Magnetic Encoder x2
 * PLA and Ultimaker 2/3 (or equivalent)
+
+NOTE: A large challenge in this mechanical design is that the assembly was required to fit within a 15/16in carbon fiber tube. Carbon fiber tubing is light, which makes it a strong candidate for exoskeleton scaffolding.
+
 
 ## Assembly
 
