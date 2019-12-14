@@ -49,7 +49,7 @@ The requirements
 
 # SEA PROTOTYPES AND FINAL
 
-<p align="center"> <script src="https://embed.github.com/view/3d/mossti/exo_rendering/blob/master/stl_files/Assembly.stl"></script> </p>
+<p align="center"> <script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/Assembly.stl"></script> </p>
 
 # CODE
 
