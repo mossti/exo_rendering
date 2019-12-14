@@ -38,7 +38,7 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 
 ## Assembly
 
-
+![](exo_schematic.png)
 
 ### Motors and motor encoders
 
@@ -52,7 +52,7 @@ The requirements
 
 # SEA PROTOTYPES AND FINAL
 
-<p align="center"><script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/Assembly.stl"></script></p>
+<p align="center"><script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/triple_roll_joint.stl"></script></p>
 
 # CODE
 
@@ -63,17 +63,21 @@ This implementation uses:
 * catkin, geometry_msgs, roscpp, rospy, std_msgs
 * teleop_tools package (for keyboard input tensioning) [get it here](https://github.com/ros-teleop/teleop_tools)!
 
-To use this code, copy the 'exo_joint' and the 'teleop_tools' packages into your ROS workspace's src folder and run 'catkin_make'.
+To use this code, copy the `exo_joint` and the `teleop_tools` packages into your ROS workspace's src folder and run `catkin_make`.
 
 ## Pre-tensioning
 
+To pre-tension, use `joint_tuner.py` via `roslaunch exo_joint joint_tuner.py`. Note that this will required `teleop_tools`.
+
+Change
+
 ## Prevent angular deflection:
 
-The goal with this code (test = '1')
+The goal with this code (`test = '1'` in `motor_driver.py`)
 
 ## Follow angular deflection:
 
-The goal with this code (test = '2')
+The goal with this code (`test = '2'` in `motor_driver.py`)
 
 ## Cable actuation:
 
