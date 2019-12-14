@@ -42,15 +42,15 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 
 ### Motors and motor encoders
 
-The requirements
+The motor encoders are quadrature magnetic encoders attached to the back shaft of the MicroMetal gear motor with 6 counts per revolution (x250 due to gear ratio).
 
 ### Spool and spool encoders
 
+The spool encoders are quadrature magnetic encoders with a max resolution of 4095 counters per revolution.
+
 ### Spring choice
 
-
-
-# SEA PROTOTYPES AND FINAL
+The requirements for correcting small motions in the GBO are for a relatively low torque actuator that is back-driveable. To achieve this, 250:1 motors were used, connected to low spring constant torsion springs (K = 0.00536 Nm/rev) connected the motors to the spool (e.g., to the load).
 
 # CODE
 
@@ -63,29 +63,31 @@ This implementation uses:
 
 To use this code, copy the `exo_joint` and the `teleop_tools` packages into your ROS workspace's src folder and run `catkin_make`.
 
-## Pre-tensioning
-
-To pre-tension, use `joint_tuner.py` via `roslaunch exo_joint joint_tuner.py`. Note that this will required `teleop_tools`.
-
-Change
-
-## Prevent angular deflection:
-
-The goal with this code (`test = '1'` in `motor_driver.py`)
-
-## Follow angular deflection:
-
-The goal with this code (`test = '2'` in `motor_driver.py`)
-
-## Cable actuation:
+## Pre-tensioning and cable actuation:
 
 ![singleroller](/images/singleroller.jpg)
 
 ![doubleroller](/images/tripleroller.jpg)
 
+To pre-tension, use `joint_tuner.py` via `roslaunch exo_joint joint_tuner.py`. Note that this will required `teleop_tools`.
+
+Run `joint_tuner.launch` from the main ROS workspace directory and use the left (motor A CCW, motor B CW) and right (motor A CW, motor B CCW) arrow keys on your keyboard to manually adjust the tension and drive the cable.
+
+## Prevent angular deflection:
+
+The goal with this code (change `test = '1'` in `motor_driver.py`) is to correct small motions, such as those seen in post-stroke spasticity. When the spool encoder begins to increment outside of a threshold range (i.e., when torque is reached), the motor will pull on the spring in the opposite direction via a PID controller to bring the angle back to its original angle.
+
+Run this with `roslaunch exo_joint angle_encoder_test.launch` after changing the value `test` in `motor_callback()` in `motor_driver.py` to `'1'`.
+
+## Follow angular deflection:
+
+The goal with this code (change `test = '2'` in `motor_driver.py`) is to achieve back-driveability. When the spool encoder increments (i.e., when there is sufficient torque on the spring, causing the spool to deflect), the motor fill follow it. This was done using a PID controller.
+
+Run this with `roslaunch exo_joint angle_encoder_test.launch` after changing the value `test` in `motor_callback()` in `motor_driver.py` to `'2'`.
+
 # FUTURE CONSIDERATIONS
 
-One of the largest issues faced was the pre-tensioning of the cable drive. The cable used (Dyneema 650lb throw-line)
+One of the largest issues faced was the pre-tensioning of the cable drive. The cable used (Dyneema 650lb throw-line) is extremely low-friction, and using a single roller at ~35 degrees deflection was not enough to cause sufficient tension in the device. Tension is important because it is proportional to the amount of torque across the elastic component at any given time. Low tension means that the spool and motor encoders will behave less like an SEA and more like a conventional actuator with lag. The inclusion of three rollers helped, increasing the tension. This is visible in the demo video.
 
 # CITATIONS
 
