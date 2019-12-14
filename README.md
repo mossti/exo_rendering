@@ -38,7 +38,7 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 
 ## Assembly
 
-![](exo_schematic.png)
+![](/images/exo_schematic.png)
 
 ### Motors and motor encoders
 
@@ -51,8 +51,6 @@ The requirements
 
 
 # SEA PROTOTYPES AND FINAL
-
-<p align="center"><script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/triple_roll_joint.stl"></script></p>
 
 # CODE
 
