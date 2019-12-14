@@ -15,6 +15,8 @@ The GBO upper-limb exoskeleton is comprised of a consumer backpack frame (with w
 
 ![singleroller](/images/exo2.jpeg)
 
+The weights can be adjusted to accommodate different arm lengths and musculature.
+
 # SEA OVERVIEW
 A series elastic actuator (SEA) is a form of actuator that inherently supports an elastic component between the actual actuator and the actuator's load. This boasts a number of helpful applications, especially in the domain of rehabilitative/assistive robotics. The elastic component allows for an otherwise rigid robotic system to interact with the environment around it (or a human element) in a non-rigid manner, providing 'give' to the joints. A wonderful caveatthat lends itself well to the realm of rehabilitative robotics is the ability to directly calculate the torque on a joint by tracking the difference in displacement of the motor and load on either side of the elastic component.
 
@@ -22,15 +24,16 @@ A series elastic actuator (SEA) is a form of actuator that inherently supports a
 
 ## BOM:
 
-* Raspberry Pi 4 Model B (2GB RAM) x1 ($45.00)
-* Torsion Spring (360 deg, Left-Hand Wound, 0.174''OD) x2 ($5.59 for 6)
-* Ball Bearing (Open, Trade Number R2, for 1/8'' Shaft Diameter) x2 ($6.21 each)
-* Carbon Fiber Tube (1" OD, 15/16'' ID, 3ft) x1 (95.99 each)
-* Dyneema Throw Line (MBS: 650lb) x1 ($26.00/54.8m)
-* Dycem Non-Slip Material Roll x1 ($18.45/1m)
-* Pololu 250:1 Micro Metal Gearmotor (HP 6V with Extended Motor Shaft) x2 ($16.95 each)
-* Pololu Magnetic Encoder Pair Kit for Micro Metal Gearmotors (12 CPR, 2.7-18V) x2 ($8.95 each)
-* AEAT-6012 Magnetic Encoder x2 ($28.79 each)
+* Raspberry Pi 4 Model B (2GB RAM) x1
+* Torsion Spring (360 deg, Left-Hand Wound, 0.174''OD) x2
+* Ball Bearing (Open, Trade Number R2, for 1/8'' Shaft Diameter) x2
+* Carbon Fiber Tube (1" OD, 15/16'' ID, 3ft) x1
+* Dyneema Throw Line (MBS: 650lb) x1
+* Dycem Non-Slip Material Roll x1
+* SunFounder TB6612 H-Bridge x1
+* Pololu 250:1 Micro Metal Gearmotor (HP 6V with Extended Motor Shaft) x2
+* Pololu Magnetic Encoder Pair Kit for Micro Metal Gearmotors (12 CPR, 2.7-18V) x2
+* AEAT-6012 Magnetic Encoder x2
 * PLA and Ultimaker 2/3 (or equivalent)
 
 ## Assembly
@@ -49,7 +52,7 @@ The requirements
 
 # SEA PROTOTYPES AND FINAL
 
-<p align="center"> <script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/Assembly.stl"></script> </p>
+<p align="center"><script src="https://embed.github.com/view/3d/mossti/exo_rendering/master/stl_files/Assembly.stl"></script></p>
 
 # CODE
 
