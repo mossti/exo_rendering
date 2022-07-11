@@ -108,4 +108,4 @@ doi: 10.1109/HAPTIC.2002.998937
 
 # ACKNOWLEDGEMENTS
 
-Special thanks to the wonderful folks in the MSR 2018-2019 cohort, Dr. Elwin, Dr. Schultz, Bill Hunt, and Dr. Huang.
+Special thanks to the wonderful folks in the MSR 2018-2019 cohort, Dr. Elwin, Dr. Schultz, Billy Strong, and Dr. Huang.
